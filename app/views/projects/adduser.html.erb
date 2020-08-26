@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>users</h1>
+
+<table id="customers">
+  <thead>
+    <tr>
+      <th>User type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+      <%if user.user_type!="Manager"%>
+      
+        <%status="false"%>
+        <% @project.users.each do |pu| %>
+          <%if pu.id==user.id%>
+            <%status="true"%>
+          <%end%>
+        <% end %>
+
+        <%if status =="false"%>
+         <td><%= user.email.split('@')[0]%></td>
+          <% add_user = { controller: 'projects', action: 'add',id: @project.id, user: user.id } %>
+          <td><%= link_to 'ADd', add_user, method: :put%><td/>
+              </tr>
+        <%end%>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Back', projects_path , class:"back_button"%>

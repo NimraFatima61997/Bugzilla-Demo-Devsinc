@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Bugs</h1>
+
+<table id="customers">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Deadline</th>
+      <th>Screenshot</th>
+      <th>Bug type</th>
+      <th>Status</th>
+      <th>Assign Bug Resolver</th>
+      <th>Remove Bug Resolver</th>
+      <th>Resolve Bug</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bugs.each do |bug| %>
+      <tr>
+        <td><%= bug.title %></td>
+        <td><%= bug.deadline %></td>
+        <td><%= bug.screenshot %></td>
+        <td><%= bug.bug_type %></td>
+        <td><%= bug.status %></td>
+        
+       
+        <td><%= link_to 'Assign ', { controller: 'bugs', action: 'assign_resolver', bug: bug.id }, method: :post%></td>
+        <td><%= link_to 'Remove', { controller: 'bugs', action: 'remove_resolver', bug: bug.id }, method: :delete%></td> 
+        <td><%= link_to 'Resolve', { controller: 'bugs', action: 'change_status', bug: bug.id, status: "resolved" }, method: :patch%></td>
+        <td><%= link_to 'Show',  [@project] %></td>
+        <td><%= link_to 'Edit', edit_project_bug_path(@project, bug) %></td>
+        <td><%= link_to 'Destroy', [@project, bug], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bug', new_project_bug_path(@project), class:"button"%>
+<%= link_to 'Back', projects_path , class: "back_button"%>

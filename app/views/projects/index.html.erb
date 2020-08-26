@@ -1,0 +1,34 @@
+
+<h1>Projects</h1>
+
+<table id="customers">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Developer/QA</th>
+      <th>Developer/QA</th>
+      <th>Bug</th>  
+      <th>Edit</th>
+      <th>Delete</th>
+      <th>Show</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+      <td><%= project.title %></td>
+      <td><%= link_to 'Add', adduser_project_path(project) %></td>
+      <td><%= link_to 'Remove', removeuser_project_path(project) %></td>
+      <td><%= link_to 'Show', project_bugs_path(project) %></td>
+      <td><%= link_to 'Edit', edit_project_path(project) %></td>
+      <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Show', project  %></td>
+      </tr>
+     <%end%>  
+  </tbody>
+</table>
+
+<br/><br/><br/>
+
+<%= link_to 'New Project', new_project_path , class: "button"%>

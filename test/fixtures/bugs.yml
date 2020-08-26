@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  deadline: 2020-08-23 17:05:32
+  screenshot: MyString
+  bug_type: MyString
+  status: MyString
+
+two:
+  title: MyString
+  deadline: 2020-08-23 17:05:32
+  screenshot: MyString
+  bug_type: MyString
+  status: MyString

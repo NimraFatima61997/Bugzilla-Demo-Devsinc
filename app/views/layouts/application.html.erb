@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manager</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+   
+    <% unless current_page?(root_path) || current_page?(root_path+ 'users/sign_in') || current_page?(root_path+ 'users/sign_up') %>
+    <img src="/logos/bugzilla.png" alt="rss feed" class="bugzilla" align="left"/>
+    <br/><br/>
+    <h4 style="text-align: left">Bugzilla</h4>
+    <br/>
+    <% end %>
+
+    <% if user_signed_in? %>
+    <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "signout_button"%>
+    <%end%>
+
+    <style>
+      .imgcontainer {
+      text-align: center;
+      margin: 24px 0 12px 0;
+      }
+
+      img.avatar {
+        width: 25%;
+        border-radius: 50%;
+      }
+      img.bugzilla {
+        width: 5%;
+        border-radius: 50%;
+      }
+
+      .container {
+        text-align: center;
+        padding: 20px;
+        border: 9px solid #4CAF50;
+      }
+
+      input[type=submit] {
+        width: max-content;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 7px;
+        
+      }
+      .button {
+        width: max-content;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;  
+        border-radius: 7px;
+        
+      }
+      .back_button {
+       color: white;
+        width: max-content;
+        background-color: #f44336;
+        
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 7px;
+        float: right;
+      }
+      .signout_button{
+        float: right;
+        width: max-content;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 7px;
+        
+      }
+      h1,h2,h3,h4,h5{
+        color: green;
+      }
+
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+
+    </style>
+  </head>
+
+  <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%= yield %>
+  </body>
+</html>

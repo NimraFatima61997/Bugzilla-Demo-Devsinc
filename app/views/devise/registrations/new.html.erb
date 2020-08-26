@@ -1,0 +1,47 @@
+<div class="container" style="background-color:#f1f1f0">
+
+<img src="/logos/bugzilla.png" alt="rss feed" class="bugzilla" align="left"/>
+<br/><br/>
+<h4 style="text-align: left">Bugzilla</h4>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  
+
+ <img src="/logos/loginimage.png" alt="rss feed" class="avatar" />
+
+</br><br/>
+  <div class="field">
+    <%= f.label :email %><br/>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field" >
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+  <%= f.label :user_type %><br />
+  <%= f.select :user_type,["Manager", "Developer", "QA"] %>
+</div>
+
+
+     <br/>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+
+<% end %>
+
+<%= render "devise/shared/links" %>
+</div>

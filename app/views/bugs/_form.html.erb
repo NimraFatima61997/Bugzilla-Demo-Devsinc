@@ -1,0 +1,46 @@
+
+<%= form_for([@project, @bug] , local: true) do |form| %>
+  <% if bug.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bug.errors.count, "error") %> prohibited this bug from being saved:</h2>
+      <ul>
+      <% bug.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :deadline %>
+    <%= form.datetime_select :deadline %>
+  </div>
+
+  <div class="field">
+    <%= form.label :screenshot %>
+    <%= form.file_field :screenshot %>
+    <% if form.object.screenshot? %>
+    <%= image_tag form.object.screenshot.thumb.url %>
+    <%= form.label :remove_screenshot %>
+    <%= form.check_box :remove_screenshot %> 
+  <% end %>
+  </div>
+ 
+<div class="field">
+<%= select_tag "bug[bug_type]", options_for_select([['Feature', 'Feature'], ['Bug','Bug'],], nil), id:'bug_type-option'%>
+</div>
+
+<div class="field">
+<%= select_tag "bug[status]", options_for_select([], nil  ),id:'status-option'%>
+</div>
+
+<div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
