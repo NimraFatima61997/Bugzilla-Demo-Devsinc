@@ -3,6 +3,7 @@ class ProjectsController < ApplicationController
   
   def index
     @user=current_user
+    @manager_project= Project.all
     if @user.user_type=="Manager" 
       @manager_project= Project.all
       @projects=Array.new   
@@ -18,7 +19,14 @@ class ProjectsController < ApplicationController
     elsif @user.user_type=="QA"
       @projects = Project.all
     end 
-    authorize @projects
+
+    if @projects.empty?
+
+    else
+      authorize @projects
+    end
+
+      
   end
 
   def adduser
