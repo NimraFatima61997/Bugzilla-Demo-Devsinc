@@ -1,5 +1,4 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong><h3>Project Title: &nbsp</h3></strong>
   <h4><%= @project.title %></h4>
@@ -8,18 +7,16 @@
 <table id="customers">
   <thead>
     <tr>
-      <th>Users</th>
-      
+      <th>Users</th> 
     </tr>
   </thead>
   <tbody>
   <% @project.users.each do |pu| %>
-  
     <tr>
-    <td><%= pu.email.split('@')[0]%></td>
+      <td><%= pu.email.split('@')[0]%></td>
     <tr/>
-    <%end%> 
-</tbody>
+  <%end%> 
+  </tbody>
 </table>
 
 <br/>
@@ -35,14 +32,14 @@
   </thead>
   <tbody>
     <% @project.bugs.each do |pb| %>
-    <tr>
-    <td><%= pb.title%></td>
-    <td><%= pb.deadline %></td>
-    <td><%= pb.bug_type %></td>
-    <td><%= pb.status %></td>
-    <td><%= image_tag pb.screenshot.thumb.url.to_s %></td>
-    <tr/>
+      <tr>
+        <td><%= pb.title%></td>
+        <td><%= pb.deadline %></td>
+        <td><%= pb.bug_type %></td>
+        <td><%= pb.status %></td>
+        <td><%= image_tag pb.screenshot.thumb.url.to_s %></td>
+      <tr/>
     <%end%> 
-</tbody>
+  </tbody>
 </table>
 <%= link_to 'Back', projects_path, class:"back_button" %>

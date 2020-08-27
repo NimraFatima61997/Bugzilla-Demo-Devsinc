@@ -1,15 +1,12 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>Title:</strong>
   <%= @bug.title %>
 </p>
-
 <p>
   <strong>Deadline:</strong>
   <%= @bug.deadline %>
 </p>
-
 <p>
   <strong>Screenshot:</strong>
   <%= image_tag @bug.screenshot.thumb.url.to_s %>
@@ -19,11 +16,9 @@
   <strong>Bug type:</strong>
   <%= @bug.bug_type %>
 </p>
-
 <p>
   <strong>Status:</strong>
   <%= @bug.status %>
 </p>
-
 <%= link_to 'Edit', edit_project_bug_path(@bug) %> |
 <%= link_to 'Back', project_bugs_path , class:"back_button"%>

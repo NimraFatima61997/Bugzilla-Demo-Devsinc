@@ -1,7 +1,5 @@
 <p id="notice"><%= notice %></p>
-
 <h1>users</h1>
-
 <table id="customers">
   <thead>
     <tr>
@@ -12,15 +10,13 @@
 
   <tbody>
     <% @users.each do |user| %>
-        <%if user.user_type!="Manager"%>
-          <td><%= user.user_type %></td>
-          <% remove_user = { controller: 'projects', action: 'remove',id: @project.id, user: user.id } %>
-          <td><%= link_to 'Remove', remove_user, method: :delete%><td/>
-          </tr>
-        <%end%>
+      <%if user.user_type!="Manager"%>
+        <td><%= user.user_type %></td>
+        <% remove_user = { controller: 'projects', action: 'remove',id: @project.id, user: user.id } %>
+        <td><%= link_to 'Remove', remove_user, method: :delete%><td/>
+        </tr>
+      <%end%>
     <% end %>
-
-   
   </tbody>
 </table>
 <%= link_to 'Back', projects_path, class:"back_button" %>

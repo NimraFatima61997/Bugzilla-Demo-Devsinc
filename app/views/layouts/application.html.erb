@@ -4,6 +4,7 @@
     <title>Manager</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -11,14 +12,14 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
    
     <% unless current_page?(root_path) || current_page?(root_path+ 'users/sign_in') || current_page?(root_path+ 'users/sign_up') %>
-    <img src="/logos/bugzilla.png" alt="rss feed" class="bugzilla" align="left"/>
-    <br/><br/>
-    <h4 style="text-align: left">Bugzilla</h4>
-    <br/>
+      <img src="/logos/bugzilla.png" alt="rss feed" class="bugzilla" align="left"/>
+      <br/><br/>
+      <h4 style="text-align: left">Bugzilla</h4>
+      <br/>
     <% end %>
 
     <% if user_signed_in? %>
-    <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "signout_button"%>
+      <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "signout_button"%>
     <%end%>
 
     <style>
@@ -89,31 +90,29 @@
         color: green;
       }
 
-#customers {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+      #customers {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
 
-#customers td, #customers th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
+      #customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
+      #customers tr:nth-child(even){background-color: #f2f2f2;}
 
-#customers tr:hover {background-color: #ddd;}
+      #customers tr:hover {background-color: #ddd;}
 
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
-}
-
-
-
+      #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+      }
+      
     </style>
   </head>
 
