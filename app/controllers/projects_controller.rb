@@ -3,17 +3,9 @@ class ProjectsController < ApplicationController
   
   def index
     @user=current_user
-    @manager_project= Project.all
+    
     if policy(current_user).manager?
-      @manager_project= Project.all
-      @projects=Array.new   
-      @manager_project.each do |p|
-        p.users.each do |pu|
-          if pu.id==@user.id
-            @projects<<p
-          end
-        end
-      end
+    @projects=current_user.projects
     elsif policy(current_user).developer?
       @projects = current_user.projects
     elsif policy(current_user).qa?

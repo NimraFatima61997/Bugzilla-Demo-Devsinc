@@ -23,6 +23,16 @@ class BugPolicy < ApplicationPolicy
   def change_status?
     return true if bug.users.find_by_id(user.id).present?  && user.user_type=="Developer"
   end
+  def sametitle?
+    @bugs=Bug.all
+    @bugs.each do |b|
+      return true if b.title==bug.title
+    end
+    return false
+  end
+  def ifresolver?
+    return true if user.bugs.find_by_id(bug)
+  end
   private
   
     def bug

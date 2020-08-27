@@ -5,7 +5,6 @@ class BugsController < ApplicationController
   def index 
     @project = get_project
     @bugs = @project.bugs
-    
     authorize @bugs
   end
 
@@ -24,19 +23,10 @@ class BugsController < ApplicationController
     @project = get_project
   end
 
-  def create
-    new_bug="false"
-    @bugs=Bug.all
-    @bug_title=Bug.new(bug_params)
-    @project = get_project
-    @bugs.each do |b|
-      if b.title==@bug_title.title
-        new_bug="true"
-        redirect_to new_project_bug_path,notice: " Bug already exist"  
-      end
-    end
-
-    if(new_bug=="false")
+  def create 
+    if policy(Bug.new(bug_params)).sametitle?
+      redirect_to new_project_bug_path,notice: " Bug already exist"  
+    else
       @bug =  current_user.bug_reports.new(bug_params)
       @bug.project=get_project
       authorize @bug
@@ -65,8 +55,7 @@ class BugsController < ApplicationController
   end
  
   def bug_status_options
-    bug_type = params[:bug_type]
-    if(bug_type=="Feature")
+    if(params[:bug_type]=="Feature")
       status_array=["new", "started", "completed"]
     else
       status_array=["new", "started", "resolved"]
@@ -84,7 +73,7 @@ class BugsController < ApplicationController
     parameters = ActionController::Parameters.new(raw_parameters)
     parameters.require(:bugs).permit!
     if @bug.update_attributes( parameters.require(:bugs).permit!)
-      redirect_to project_bugs_path,notice: " Bug Status was successfully updated."
+      redirect_to projects_path,notice: " Bug Status was successfully updated."
      end
   end
 
@@ -108,9 +97,11 @@ class BugsController < ApplicationController
     def set_bug
       @bug = Bug.find(params[:id])
     end
+
    def get_project
     @project = Project.find(params[:project_id]) 
    end
+   
     def bug_params
       params.require(:bug).permit(:title, :deadline, :screenshot, :bug_type, :status)
     end

@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 <h1>Bugs</h1>
 <table id="customers">
+
   <thead>
     <tr>
       <th>Title</th>
@@ -15,6 +16,7 @@
       <%end%>
     </tr>
   </thead>
+
   <tbody>
     <% @bugs.each do |bug| %>
       <tr>
@@ -26,10 +28,14 @@
         <%if policy(current_user).developer?%>
           <td><%= link_to 'Assign ', { controller: 'bugs', action: 'assign_resolver', bug: bug.id }, method: :post%></td>
           <td><%= link_to 'Remove', { controller: 'bugs', action: 'remove_resolver', bug: bug.id }, method: :delete%></td> 
-          <%if(bug.bug_type=="Bug")%>
-            <td><%= link_to 'Resolve', { controller: 'bugs', action: 'change_status', bug: bug.id, status: "Resolved" }, method: :patch%></td>
+          <%if policy(bug).ifresolver?%>
+            <%if(bug.bug_type=="Bug")%>
+              <td><%= link_to 'Resolve', { controller: 'bugs', action: 'change_status', bug: bug.id, status: "Resolved" }, method: :patch%></td>
+            <%else%>
+              <td><%= link_to 'Resolve', { controller: 'bugs', action: 'change_status', bug: bug.id, status: "Completed" }, method: :patch%></td>
+            <%end%>
           <%else%>
-            <td><%= link_to 'Resolve', { controller: 'bugs', action: 'change_status', bug: bug.id, status: "Completed" }, method: :patch%></td>
+            <td>Not Resolver </td>
           <%end%>
         <%end%>
         <td><%= link_to 'Show',  [@project] %></td>
@@ -37,12 +43,16 @@
           <td><%= link_to 'Edit', edit_project_bug_path(@project, bug) %></td>
           <td><%= link_to 'Destroy', [@project, bug], method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <%end%>
-        </tr>
+      </tr>
     <% end %>
   </tbody>
+
 </table>
+
 <br>
+
 <%if policy(current_user).qa?%>
   <%= link_to 'New Bug', new_project_bug_path(@project), class:"button"%>
 <%end%>
+
 <%= link_to 'Back', projects_path , class: "back_button"%>
