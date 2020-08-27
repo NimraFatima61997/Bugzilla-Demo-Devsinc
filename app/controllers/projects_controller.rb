@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   def index
     @user=current_user
     @manager_project= Project.all
-    if @user.user_type=="Manager" 
+    if policy(current_user).manager?
       @manager_project= Project.all
       @projects=Array.new   
       @manager_project.each do |p|
@@ -14,9 +14,9 @@ class ProjectsController < ApplicationController
           end
         end
       end
-    elsif @user.user_type=="Developer"
+    elsif policy(current_user).developer?
       @projects = current_user.projects
-    elsif @user.user_type=="QA"
+    elsif policy(current_user).qa?
       @projects = Project.all
     end 
 
