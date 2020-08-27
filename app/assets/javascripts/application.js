@@ -16,3 +16,4 @@
 //= require_tree .
 //= require jquery
 
+//= require bug_status_options

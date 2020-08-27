@@ -3,12 +3,17 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Developer/QA</th>
-      <th>Developer/QA</th>
-      <th>Bug</th>  
-      <th>Edit</th>
-      <th>Delete</th>
+      <%if policy(@user).manager?%>
+        <th>Developer/QA</th>
+        <th>Developer/QA</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      <%end%>
       <th>Show</th>
+      <%if policy(@user).qa_and_developer?%>
+        <th>Bug</th> 
+      <%end%> 
+      
     </tr>
   </thead>
 
@@ -16,17 +21,23 @@
     <% @projects.each do |project| %>
       <tr>
         <td><%= project.title %></td>
-        <td><%= link_to 'Add', adduser_project_path(project) %></td>
-        <td><%= link_to 'Remove', removeuser_project_path(project) %></td>
-        <td><%= link_to 'Show', project_bugs_path(project) %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Show', project  %></td>
+        <%if policy(@user).manager?%>
+          <td><%= link_to 'Add', adduser_project_path(project) %></td>
+          <td><%= link_to 'Remove', removeuser_project_path(project) %></td>
+          <td><%= link_to 'Edit', edit_project_path(project) %></td>
+          <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+          <td><%= link_to 'Show', project  %></td>
+          <%if policy(@user).qa_and_developer?%>
+            <td><%= link_to 'Show', project_bugs_path(project) %></td> 
+          <%end%>
+        
       </tr>
     <%end%>  
   </tbody>
 </table>
 
 <br/><br/><br/>
-
-<%= link_to 'New Project', new_project_path , class: "button"%>
+ <%if policy(@user).manager?%>
+  <%= link_to 'New Project', new_project_path , class: "button"%>
+ <%end%>

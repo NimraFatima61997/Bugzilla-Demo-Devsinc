@@ -8,9 +8,11 @@
       <th>Screenshot</th>
       <th>Bug type</th>
       <th>Status</th>
-      <th>Assign Bug Resolver</th>
-      <th>Remove Bug Resolver</th>
-      <th>Resolve Bug</th>
+      <%if policy(current_user).developer?%>
+        <th>Assign Bug Resolver</th>
+        <th>Remove Bug Resolver</th>
+        <th>Resolve Bug</th>
+      <%end%>
     </tr>
   </thead>
   <tbody>
@@ -21,21 +23,26 @@
         <td><%= image_tag bug.screenshot.thumb.url.to_s %></td>
         <td><%= bug.bug_type %></td>
         <td><%= bug.status %></td>
-     
-        <td><%= link_to 'Assign ', { controller: 'bugs', action: 'assign_resolver', bug: bug.id }, method: :post%></td>
-        <td><%= link_to 'Remove', { controller: 'bugs', action: 'remove_resolver', bug: bug.id }, method: :delete%></td> 
-        <%if(bug.bug_type=="Bug")%>
-          <td><%= link_to 'Resolve', { controller: 'bugs', action: 'change_status', bug: bug.id, status: "Resolved" }, method: :patch%></td>
-        <%else%>
-          <td><%= link_to 'Resolve', { controller: 'bugs', action: 'change_status', bug: bug.id, status: "Completed" }, method: :patch%></td>
+        <%if policy(current_user).developer?%>
+          <td><%= link_to 'Assign ', { controller: 'bugs', action: 'assign_resolver', bug: bug.id }, method: :post%></td>
+          <td><%= link_to 'Remove', { controller: 'bugs', action: 'remove_resolver', bug: bug.id }, method: :delete%></td> 
+          <%if(bug.bug_type=="Bug")%>
+            <td><%= link_to 'Resolve', { controller: 'bugs', action: 'change_status', bug: bug.id, status: "Resolved" }, method: :patch%></td>
+          <%else%>
+            <td><%= link_to 'Resolve', { controller: 'bugs', action: 'change_status', bug: bug.id, status: "Completed" }, method: :patch%></td>
+          <%end%>
         <%end%>
-          <td><%= link_to 'Show',  [@project] %></td>
-        <td><%= link_to 'Edit', edit_project_bug_path(@project, bug) %></td>
-        <td><%= link_to 'Destroy', [@project, bug], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <td><%= link_to 'Show',  [@project] %></td>
+        <%if policy(current_user).qa?%>
+          <td><%= link_to 'Edit', edit_project_bug_path(@project, bug) %></td>
+          <td><%= link_to 'Destroy', [@project, bug], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+        </tr>
     <% end %>
   </tbody>
 </table>
 <br>
-<%= link_to 'New Bug', new_project_bug_path(@project), class:"button"%>
+<%if policy(current_user).qa?%>
+  <%= link_to 'New Bug', new_project_bug_path(@project), class:"button"%>
+<%end%>
 <%= link_to 'Back', projects_path , class: "back_button"%>

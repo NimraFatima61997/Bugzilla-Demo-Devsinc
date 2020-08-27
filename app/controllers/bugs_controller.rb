@@ -5,6 +5,7 @@ class BugsController < ApplicationController
   def index 
     @project = get_project
     @bugs = @project.bugs
+    
     authorize @bugs
   end
 

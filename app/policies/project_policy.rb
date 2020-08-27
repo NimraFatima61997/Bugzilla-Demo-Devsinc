@@ -18,7 +18,7 @@ class ProjectPolicy < ApplicationPolicy
   def destroy?
     return true if user.present? && user == project.users.find(user.id) && user.user_type == "Manager"
   end
-
+ 
   private
   
     def project
