@@ -23,18 +23,17 @@ class BugsController < ApplicationController
     @project = get_project
   end
 
-  def create 
-    if policy(Bug.new(bug_params)).sametitle?
-      redirect_to new_project_bug_path,notice: " Bug already exist"  
+  def create
+    @bug =  current_user.bug_reports.new(bug_params)
+    @bug.project=get_project
+    authorize @bug
+    if @bug.save
+      redirect_to projects_path,notice: " Bug was successfully added."    
     else
-      @bug =  current_user.bug_reports.new(bug_params)
-      @bug.project=get_project
-      authorize @bug
-      if @bug.save
-        redirect_to projects_path,notice: " Bug was successfully added."    
-      end
+      redirect_to new_project_bug_path,notice: " Bug not created."
     end
   end
+
 
   def update
     authorize @bug
