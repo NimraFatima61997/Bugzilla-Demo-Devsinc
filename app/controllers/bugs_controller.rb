@@ -1,7 +1,7 @@
 class BugsController < ApplicationController
   before_action :set_bug, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
- 
+   before_action :authenticate_user!
   def index 
     @project = get_project
     @bugs = @project.bugs
